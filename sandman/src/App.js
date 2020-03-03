@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 //Erik's imports
 import Login from './components/Login'
+import MoodForm from './components/MoodForm'
 
 function App() {
   return (
