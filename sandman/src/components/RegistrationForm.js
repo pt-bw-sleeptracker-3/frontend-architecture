@@ -1,4 +1,4 @@
-import React, { useState } from react
+import React, { useState } from 'react'
 
 const Register = () => {
 
@@ -15,13 +15,13 @@ const Register = () => {
 
 
     //still not sure what to include here for the api so its commented for now -erik
-    /*const submitHandler = () => {
-       
-    }*/
+    const submitHandler = () => {
+       console.log(registration)
+    }
 
     return (
         <div>
-            <form onSubmit={}>
+            <form onSubmit={submitHandler}>
                 <input 
                     type='text'
                     name='name'
@@ -50,6 +50,9 @@ const Register = () => {
                     placeholder='Password' 
                     onChange={changeHandler}
                 />
+                <button type='submit'>
+                    Sign Up
+                </button>
             </form>
 
         </div>
