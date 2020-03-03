@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 
 import { AxiosWithAuth } from "../utils/AxiosWithAuth";
 
+import "../App.scss"
+
+import Navigation from "./Navigation"
+
 // Styling from Evergreen
 import { Pane, Button, Text, Heading, TextInput } from 'evergreen-ui';
 
 // Images
-import Logo from "../images/logo.png";
+import Logo from "../images/text-logo.png";
 
 const Login = props => {
 
@@ -34,44 +38,49 @@ const Login = props => {
     return (
         <>
             <Pane
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                flexDirection="column"
-            >
-                <Heading size={800} marginTop="default">Welcome to Sandman!</Heading>
-                <Heading size={600} marginTop="default" marginBottom={24}>Please Log In!</Heading>
-                <form onSubmit={submitHandler}>
-                    <label>
-                        <TextInput
-                            marginBottom={16}
-                            type='text'
-                            name='username'
-                            value={login.username}
-                            placeholder='Username...'
-                            onChange={changeHandler}
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        <TextInput
-                            marginBottom={16}
-                            type='password'
-                            name='password'
-                            value={login.password}
-                            placeholder='Password...'
-                            onChange={changeHandler}
-                        />
-                    </label>
-                    <br />
-                    <Button
-                        type='submit'
-                        appearance="primary"
-                        intent="none"
-                        iconBefore="log-in"
-                    >Login</Button>
-                </form>
-                {/* <Button
+                display="flex">
+                <Navigation />
+                <Pane
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    flexDirection="column"
+                    marginLeft="30%"
+                    marginTop="-10%"
+                >
+                    <Heading size={800}>Welcome to Sandman!</Heading>
+                    <Heading size={600} marginBottom={24}>Please Log In!</Heading>
+                    <form onSubmit={submitHandler}>
+                        <label>
+                            <TextInput
+                                marginBottom={16}
+                                type='text'
+                                name='username'
+                                value={login.username}
+                                placeholder='Username...'
+                                onChange={changeHandler}
+                            />
+                        </label>
+                        <br />
+                        <label>
+                            <TextInput
+                                marginBottom={16}
+                                type='password'
+                                name='password'
+                                value={login.password}
+                                placeholder='Password...'
+                                onChange={changeHandler}
+                            />
+                        </label>
+                        <br />
+                        <Button
+                            type='submit'
+                            appearance="primary"
+                            intent="none"
+                            iconBefore="log-in"
+                        >Login</Button>
+                    </form>
+                    {/* <Button
                     appearance="primary"
                     intent="success"
                     iconAfter="moon"
@@ -81,6 +90,7 @@ const Login = props => {
                     top="25.8%"
                 >Register</Button> */}
 
+                </Pane>
             </Pane>
         </>
     )
