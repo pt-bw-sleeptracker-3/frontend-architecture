@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
 
 import { AxiosWithAuth } from "../utils/AxiosWithAuth";
 
@@ -12,7 +14,20 @@ import { Pane, Button, Text, Heading, TextInput } from 'evergreen-ui';
 // Images
 import Logo from "../images/text-logo.png";
 
+const schema = yup.object().shape({
+    username: yup
+        .string()
+        .required('This is a required field.'),
+    password: yup
+        .string()
+        .required('This is a required field.')
+})
+
 const Login = props => {
+
+  const { register, errors, handleSubmit, getValues } = useForm({
+        validationSchema: schema
+    })
 
     const [login, setLogin] = useState({
         username: '',
@@ -23,8 +38,9 @@ const Login = props => {
         setLogin({ ...login, [event.target.name]: event.target.value })
     }
 
-    const submitHandler = e => {
-        e.preventDefault();
+    const onSubmit = () => {
+        const login = getValues()
+        console.log(login)
         AxiosWithAuth()
             .post("api/auth/login", login)
             .then(res => {
@@ -50,28 +66,24 @@ const Login = props => {
                 >
                     <Heading size={800}>Welcome to Sandman!</Heading>
                     <Heading size={600} marginBottom={24}>Please Log In!</Heading>
-                    <form onSubmit={submitHandler}>
-                        <label>
-                            <TextInput
-                                marginBottom={16}
-                                type='text'
-                                name='username'
-                                value={login.username}
-                                placeholder='Username...'
-                                onChange={changeHandler}
-                            />
-                        </label>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <input
+                            marginBottom={16}
+                            type='text'
+                            name='username'
+                            placeholder='Username...'
+                            ref={register}
+                        />
+                        {errors.username && <p>{errors.username.message}</p>}
                         <br />
-                        <label>
-                            <TextInput
-                                marginBottom={16}
-                                type='password'
-                                name='password'
-                                value={login.password}
-                                placeholder='Password...'
-                                onChange={changeHandler}
-                            />
-                        </label>
+                        <input
+                            marginBottom={16}
+                            type='password'
+                            name='password'
+                            placeholder='Password...'
+                            ref={register}
+                        />
+                        {errors.password && <p>{errors.password.message}</p>}
                         <br />
                         <Button
                             type='submit'
