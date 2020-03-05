@@ -13,27 +13,21 @@ const schema = yup.object().shape({
 
 const MoodForm = () => {
 
-    const { register, errors, handleSubmit } = useForm({
+    const { register, errors, handleSubmit, getValues } = useForm({
         validationSchema: schema
     })
 
-    const [mood, setMood] = useState({
-        mood: 'default'
-    })
-
-    const changeHandler = (event) => {
-        setMood(event.target.value)
-    }
-
-    const submitHandler = () => {
-       console.log(mood)
+    const onSubmit = () => {
+        const values = getValues()
+        const currentMood = Number(values.mood)
+        console.log(currentMood)
     }
 
     return(
         <>
             <h4>Which most accurately represents your current mood?</h4>
-            <form onSubmit={handleSubmit(submitHandler)}>
-                <select name='mood' onChange={changeHandler} ref={register}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <select name='mood' ref={register}>
                     <option value='error'>Pick mood</option>
                     <option value={1}>sad emoji</option>
                     <option value={2}>neutral emoji</option>
