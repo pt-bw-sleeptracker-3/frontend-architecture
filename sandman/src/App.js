@@ -5,16 +5,15 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import SleepTracker from './components/SleepTracker';
 import PrivateRoute from "./utils/PrivateRoute";
+import MoodForm from './components/MoodForm'
+import Registration from './components/RegistrationForm'
 
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route exact path="/" component={Login} />
-        {/* <Route path="/register" component={Register} /> */}
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/tracker" component={SleepTracker} />
-      </Switch>
+      <Login/>
+      <Registration/>
+      <MoodForm/>
     </div>
   );
 }
