@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-//Erik's imports
-import Login from './components/Login'
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
+import SleepTracker from './components/SleepTracker';
+import PrivateRoute from "./utils/PrivateRoute";
 import MoodForm from './components/MoodForm'
 import Registration from './components/RegistrationForm'
 
