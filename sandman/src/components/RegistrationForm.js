@@ -25,7 +25,6 @@ const schema = yup.object().shape({
 const Register = () => {
 
     const { register, errors, handleSubmit, getValues } = useForm({
-
         validationSchema: schema
     })
 
@@ -33,7 +32,7 @@ const Register = () => {
 
     //submitHandler is passed to react-hook-form 's handleSubmit function
     //still not sure what to include here for the api so its commented for now -erik
-    const onSubmit = (data) => {
+    const onSubmit = () => {
         const values = getValues()
         console.log(values)
     }
