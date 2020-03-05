@@ -26,7 +26,7 @@ const Login = props => {
     const submitHandler = e => {
         e.preventDefault();
         AxiosWithAuth()
-            .post("api/login", login)
+            .post("api/auth/login", login)
             .then(res => {
                 localStorage.setItem("token", res.data.payload);
                 props.history.push("/dashboard");
