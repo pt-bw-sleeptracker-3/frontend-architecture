@@ -24,38 +24,27 @@ const schema = yup.object().shape({
 
 const Register = () => {
 
-    const { register, errors, handleSubmit } = useForm({
+    const { register, errors, handleSubmit, getValues } = useForm({
+
         validationSchema: schema
     })
 
-    const [registration, setRegistration] = useState({
-        name: '',
-        email: '',
-        username: '',
-        password: '',
-    })
 
-    const changeHandler = (event) => {
-        setRegistration({ ...registration, [event.target.name]: event.target.value })
-
-    }
 
     //submitHandler is passed to react-hook-form 's handleSubmit function
     //still not sure what to include here for the api so its commented for now -erik
-    const submitHandler = (e) => {
-        e.preventDefault()
-       console.log(registration)
+    const onSubmit = (data) => {
+        const values = getValues()
+        console.log(values)
     }
 
     return (
         <>
-            <form onSubmit={handleSubmit(submitHandler)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <input 
                     type='text'
                     name='name'
-                    value={registration.name}
                     placeholder='Name'
-                    onChange={changeHandler}
                     ref={register}
                 /> 
                 {errors.name && <p>{errors.name.message}</p>}
@@ -63,19 +52,15 @@ const Register = () => {
                 <input 
                     type='text' 
                     name='email' 
-                    value={registration.email} 
                     placeholder='Email' 
-                    onChange={changeHandler}
                     ref={register}
                 />
                 {errors.email && <p>{errors.email.message}</p>}   
 
                 <input 
                     type='text' 
-                    name='username' 
-                    value={registration.username} 
+                    name='username'  
                     placeholder='Username' 
-                    onChange={changeHandler}
                     ref={register}
                 />
                 {errors.username && <p>{errors.username.message}</p>}
@@ -83,9 +68,7 @@ const Register = () => {
                  <input 
                     type='password' 
                     name='password' 
-                    value={registration.password} 
                     placeholder='Password' 
-                    onChange={changeHandler}
                     ref={register}
                 />
                 {errors.password && <p>{errors.password.message}</p>}
