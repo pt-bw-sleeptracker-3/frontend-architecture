@@ -1,8 +1,48 @@
 import React, { createRef, Component } from 'react';
 import Chart from 'chart.js';
-// import classes from "./LineGraph.module.css";
+import './SleepTracker.scss';
 
 const data = [
+    {
+        date: '2/26/2020',
+        sleepStart: 0,
+        sleepEnd: 7,
+        moodMorn: 2,
+        moodMid: 2,
+        moodNight: 4
+    },
+    {
+        date: '2/27/2020',
+        sleepStart: 18,
+        sleepEnd: 23,
+        moodMorn: 3,
+        moodMid: 1,
+        moodNight: 3
+    },
+    {
+        date: '2/28/2020',
+        sleepStart: 22,
+        sleepEnd: 6,
+        moodMorn: 4,
+        moodMid: 4,
+        moodNight: 2
+    },
+    {
+        date: '2/29/2020',
+        sleepStart: 10,
+        sleepEnd: 18,
+        moodMorn: 4,
+        moodMid: 2,
+        moodNight: 3
+    },
+    {
+        date: '3/01/2020',
+        sleepStart: 14,
+        sleepEnd: 16,
+        moodMorn: 1,
+        moodMid: 1,
+        moodNight: 1
+    },
     {
         date: '2/26/2020',
         sleepStart: 0,
