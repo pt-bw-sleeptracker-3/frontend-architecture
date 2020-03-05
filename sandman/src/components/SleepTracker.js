@@ -128,7 +128,7 @@ class SleepTracker extends Component {
 
     componentDidMount() {
         const myChartRef = this.chartRef.current.getContext("2d");
-        
+
         new Chart(myChartRef, {
             type: "bar",
             data: {
@@ -151,7 +151,7 @@ class SleepTracker extends Component {
         return (
             <>
                 <h1>Sleep Tracker!</h1>
-                <div>
+                <div className="sleeptracker">
                     <canvas
                         id="myChart"
                         ref={this.chartRef}
@@ -160,6 +160,6 @@ class SleepTracker extends Component {
             </>
         );
     }
-}; 
+};
 
 export default SleepTracker;

@@ -42,7 +42,7 @@ const Login = props => {
         const login = getValues()
         console.log(login)
         AxiosWithAuth()
-            .post("api/login", login)
+            .post("api/auth/login", login)
             .then(res => {
                 localStorage.setItem("token", res.data.payload);
                 props.history.push("/dashboard");

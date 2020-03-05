@@ -11,7 +11,12 @@ import Registration from './components/RegistrationForm'
 function App() {
   return (
     <div className="App">
-      <Login/>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/register" component={Registration} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/tracker" component={SleepTracker} />
+      </Switch>
     </div>
   );
 }

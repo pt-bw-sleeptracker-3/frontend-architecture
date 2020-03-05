@@ -43,7 +43,8 @@ const Navigation = props => {
                     </Menu.Group>
                     <Menu.Divider />
                     <Menu.Group>
-                        <Menu.Item icon="log-in" secondaryText="login" intent="success">Wakeup...</Menu.Item>
+                        <Menu.Item icon="log-in" secondaryText="login" intent="success" is="a" href="/" textDecoration="none">Wakeup...</Menu.Item>
+                        <Menu.Item icon="moon" secondaryText="register" intent="success" is="a" href="/register" textDecoration="none">Go to Sleep...</Menu.Item>
                     </Menu.Group>
                 </Menu>
             </Pane>
