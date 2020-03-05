@@ -120,6 +120,6 @@ class SleepTracker extends Component {
             </>
         );
     }
-};
+}; 
 
 export default SleepTracker;
