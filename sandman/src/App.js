@@ -44,7 +44,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Registration} />
-        <PrivateRoute path="/dashboard" render={props=> <Dashboard {...props} sunrise={sunData.sunrise} sunset={sunData.sunset}/>} />
+        <PrivateRoute path="/dashboard" componenet={Dashboard}/*render={props=> <Dashboard {...props} sunrise={sunData.sunrise} sunset={sunData.sunset}/>}*/ />
         <PrivateRoute path="/tracker" component={SleepTracker} />
       </Switch>
     </div>
