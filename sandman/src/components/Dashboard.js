@@ -17,6 +17,8 @@ const Dashboard = (props) => {
                 display="flex">
                 <DashboardNav />
                 <h1>Dashboard</h1>
+                <p>Sunrise today is at {props.sunrise} UTC Time</p>
+                <p>Sunset today is at {props.sunset} UTC Time</p>
             </Pane>
         </>
     )
