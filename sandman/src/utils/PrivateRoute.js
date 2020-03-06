@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-const PrivateRoute = ({ componenet: Component, ...theRest }) => {
+const PrivateRoute = ({ component: Component, ...theRest }) => {
     return (
         <Route
             {...theRest}
