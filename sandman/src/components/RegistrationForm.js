@@ -44,7 +44,7 @@ const Register = (props) => {
         AxiosWithAuth()
             .post("api/auth/register", getValues)
             .then(res => {
-                localStorage.setItem("token", res.data.payload);
+                localStorage.setItem("token", res.data.token);
                 props.history.push("/dashboard");
             })
 

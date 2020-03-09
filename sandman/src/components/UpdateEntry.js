@@ -1,0 +1,122 @@
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import { AxiosWithAuth } from '../utils/AxiosWithAuth'
+
+import { Pane, Button } from 'evergreen-ui'
+
+import DashboardNav from './DashboardNav'
+
+const UpdateEntry = props => {
+    const [entry, setEntry] = useState({
+        id: 0,
+        date: '',
+        sleepStart: 0,
+        sleepEnd: 0,
+        moodMorn: 2,
+        moodMid: 2,
+        moodNight: 2,
+    })
+    const { id } = props.match.params
+    useEffect(() => {
+        AxiosWithAuth()
+            .get(`api/sleep-data/${id}`)
+            .then(res => {
+                setEntry({ ...entry, ...res.data })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    // Handlers
+
+    const changeHandler = event => {
+        setEntry({
+            ...entry,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    const submitHandler = event => {
+        event.preventDefault()
+        AxiosWithAuth()
+            .put(`api/sleep-data/${id}`, entry)
+            .then(res => {
+                console.log(res)
+                if (id) {
+                    props.history.push(`/entries/${id}`)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                console.log(entry)
+            })
+    }
+
+    return (
+        <Pane
+            display="flex">
+            <DashboardNav />
+            <Pane
+                display="flex"
+                flexDirection="column"
+                marginLeft={30}>
+                <h1>Edit Entry</h1>
+                <form onSubmit={submitHandler} className="update-form">
+                    <label>Sleep Start: </label><br />
+                    <input
+                        type="number"
+                        name="sleepStart"
+                        value={entry.sleepStart}
+                        placeholder="Sleep Start"
+                        onChange={changeHandler}
+                    />
+                    <br />
+                    <label>Sleep End:</label><br />
+                    <input type="number"
+                        name="sleepEnd"
+                        value={entry.sleepEnd}
+                        placeholder="Sleep End"
+                        onChange={changeHandler}
+                    />
+                    <br />
+                    <label>Mood in the Morning:</label> <br />
+                    <select name="moodMorn" onChange={changeHandler}>
+                        <option value={1}>sad emoji</option>
+                        <option value={2}>neutral emoji</option>
+                        <option value={3}>happy emoji</option>
+                        <option value={4}>very happy emoji</option>
+                    </select>
+                    <br />
+
+                    <label>Mood in the Afternoon:</label> <br />
+                    <select name="moodMid" onChange={changeHandler}>
+                        <option value={1}>sad emoji</option>
+                        <option value={2}>neutral emoji</option>
+                        <option value={3}>happy emoji</option>
+                        <option value={4}>very happy emoji</option>
+                    </select>
+                    <br />
+
+                    <label>Mood at Night:</label> <br />
+                    <select name="moodNight" onChange={changeHandler}>
+                        <option value={1}>sad emoji</option>
+                        <option value={2}>neutral emoji</option>
+                        <option value={3}>happy emoji</option>
+                        <option value={4}>very happy emoji</option>
+                    </select>
+
+                    <br />
+                    <Button
+                        type="submit"
+                        iconBefore="tick"
+                        marginTop={16}>
+                        Save
+                    </Button>
+                </form>
+            </Pane>
+        </Pane>
+    )
+}
+
+export default UpdateEntry;

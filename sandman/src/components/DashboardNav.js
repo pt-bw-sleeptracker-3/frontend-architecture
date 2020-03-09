@@ -40,8 +40,8 @@ const Navigation = props => {
                 <Menu>
                     <Menu.Group>
                         <Menu.Item icon="people" secondaryText="dashboard" is="a" href="/dashboard" textDecoration="none">Bedroom...</Menu.Item>
-                        <Menu.Item icon="diagram-tree" secondaryText="tracker" is="a" href="/tracker" textDecoration="none">Pillow...</Menu.Item>
-                        <Menu.Item icon="cog" secondaryText="settings">Sheets...</Menu.Item>
+                        <Menu.Item icon="timeline-bar-chart" secondaryText="tracker" is="a" href="/tracker" textDecoration="none">Pillow...</Menu.Item>
+                        <Menu.Item icon="timeline-events" is="a" href="/entries" textDecoration="none" secondaryText="entries">Sheets...</Menu.Item>
                     </Menu.Group>
                     <Menu.Divider />
                     <Menu.Group>

@@ -1,17 +1,16 @@
 .sleeptracker {
-    border: 1px groove black;
     border-radius: 1%;
-    width: auto;
+    width: 80%;
     height: auto;
     margin: 1%;
-    box-shadow: 10px 10px 10px black;
 
     canvas {
         margin: 1%;
         padding: auto;
-        width: auto;
+        width: 80%;
         height: auto;
         border-radius: 1%;
-        box-shadow: 10px 10px 10px black;
+        background-color: #C5DDFC;
+        color: white;
     }
 }
