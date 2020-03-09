@@ -1,0 +1,41 @@
+.App {
+  background-color: #CFC9FC;
+  height: 100%;
+  margin-top: -10;
+}
+
+.logo {
+  display: block;
+  width: 20%;
+  margin: 10px auto 40px auto;
+}
+
+.nav-logo {
+  width: 30%;
+  padding-bottom: 10%;
+}
+
+a {
+  text-decoration: none;
+  color: #2470D2;
+}
+
+.entry-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: space-between;
+  margin-top: 5%;
+  width: 50%;
+  height: 80vh;
+}
+
+.entry-card {
+  text-decoration: none;
+  width: 200px;
+  height: 200px;
+  border: 1px dashed #8171F0;
+  padding: 5%;
+  text-align: center;
+  padding-bottom: 3%;
+}
