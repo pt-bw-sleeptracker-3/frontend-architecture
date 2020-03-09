@@ -114,7 +114,7 @@ const EntryForm = (props) => {
                     </select>
 
                     <br />
-                    <Button type="submit">Submit Entry!</Button>
+                    <Button marginTop={16} iconBefore="upload" type="submit">Submit Entry!</Button>
                 </form>
             </Pane>
         </>

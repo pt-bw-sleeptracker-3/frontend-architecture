@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { AxiosWithAuth } from '../utils/AxiosWithAuth'
 
+import { Pane, Button } from 'evergreen-ui'
+
+import DashboardNav from './DashboardNav'
+
 const UpdateEntry = props => {
     const [entry, setEntry] = useState({
         id: 0,
@@ -50,8 +54,13 @@ const UpdateEntry = props => {
     }
 
     return (
-        <div className="save-wrapper">
-            <div className="update-entry">
+        <Pane
+            display="flex">
+            <DashboardNav />
+            <Pane
+                display="flex"
+                flexDirection="column"
+                marginLeft={30}>
                 <h1>Edit Entry</h1>
                 <form onSubmit={submitHandler} className="update-form">
                     <label>Sleep Start: </label><br />
@@ -98,12 +107,15 @@ const UpdateEntry = props => {
                     </select>
 
                     <br />
-                    <button className="edit-button" type="submit">
-                        Edit
-          </button>
+                    <Button
+                        type="submit"
+                        iconBefore="tick"
+                        marginTop={16}>
+                        Save
+                    </Button>
                 </form>
-            </div>
-        </div>
+            </Pane>
+        </Pane>
     )
 }
 

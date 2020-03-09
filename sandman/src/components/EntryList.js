@@ -34,11 +34,14 @@ export default class EntryList extends Component {
                 <Pane
                     display="flex">
                     <DashboardNav />
-                    <div className="entry-list">
-                        {this.state.entries.map(entry => (
-                            <EntryDetails key={entry.id} entry={entry} />
-                        ))}
-                    </div>
+                    <Pane
+                        marginLeft={25}>
+                        <div className="entry-list">
+                            {this.state.entries.map(entry => (
+                                <EntryDetails key={entry.id} entry={entry} />
+                            ))}
+                        </div>
+                    </Pane>
                 </Pane>
             </div>
         );

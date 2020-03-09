@@ -47,10 +47,11 @@ const Dashboard = (props) => {
         <DashboardNav />
         <Pane
           display="flex"
-          flexDirection="column">
+          flexDirection="column"
+          marginLeft={30}>
           <h1>Dashboard</h1><br />
-          <p>Sunrise today is at {sunData.sunrise} UTC Time</p>
-          <p>Sunset today is at {sunData.sunset} UTC Time</p>
+          <p>Sunrise today is at {sunData.sunrise} UTC Time.</p>
+          <p>Sunset today is at {sunData.sunset} UTC Time.</p>
           <EntryForm />
         </Pane>
       </Pane>

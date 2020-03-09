@@ -4,6 +4,10 @@ import axios from "axios"
 import { AxiosWithAuth } from '../utils/AxiosWithAuth'
 import EntryCard from "./EntryCard"
 
+import DashboardNav from './DashboardNav'
+
+import { Button, Pane } from 'evergreen-ui'
+
 export default class Entry extends React.Component {
     constructor(props) {
         super(props)
@@ -46,20 +50,44 @@ export default class Entry extends React.Component {
         }
 
         return (
-            <div className="save-wrapper">
-                <EntryCard entry={this.state.entry} />
-                <Link
+            <div>
+                <Pane
+                    display="flex">
+                    <DashboardNav />
+                    <Pane
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                        marginLeft={25}
+                        marginTop={25}>
+                        <EntryCard entry={this.state.entry} />
+                        {/* <Link
                     className="edit-button"
                     to={`/update-entry/${this.props.match.params.id}`}
                 >
                     Edit
-        </Link>
-                <button
-                    className="delete-button"
-                    onClick={() => this.deleteEntry(this.props.match.params.id)}
-                >
-                    Delete
-        </button>
+        </Link> */}
+
+                        <Button
+                            is="a"
+                            href={`/update-entry/${this.props.match.params.id}`}
+                            iconBefore="edit"
+                            width={100}
+                            marginBottom={16}
+                            marginTop={16}>
+                            Edit
+                    </Button>
+
+
+                        <Button
+                            iconBefore="delete"
+                            width={100}
+                            onClick={() => this.deleteEntry(this.props.match.params.id)}
+                        >
+                            Delete
+               </Button>
+                    </Pane>
+                </Pane>
             </div>
         )
     }

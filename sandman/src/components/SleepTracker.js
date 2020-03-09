@@ -63,8 +63,23 @@ const SleepTracker = (props) => {
     }
 
     const findMood = (moodMorn, moodMid, moodNight) => {
-        return ((moodMorn + moodMid + moodNight) / 3)
+        return Math.floor((moodMorn + moodMid + moodNight) / 3)
     }
+
+    const bestMood = sleepData.map((entry) => {
+        let avg = findMood(entry.moodMorn, entry.moodMid, entry.moodNight);
+        let hours = findHours(entry.sleepStart, entry.sleepEnd);
+
+        return {
+            mood: avg,
+            hours: hours,
+        };
+    })
+
+    bestMood.sort((a, b) => b.mood - a.mood)
+    console.log(bestMood)
+
+
 
     const chartConfig = {
 
@@ -116,6 +131,7 @@ const SleepTracker = (props) => {
                                 ]
                             }}
                         />
+                        <p>You should get {bestMood[0].hours} hours of sleep for best mood!</p>
                     </div>
                 </Pane>
             </Pane>
