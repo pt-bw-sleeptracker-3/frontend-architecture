@@ -25,7 +25,7 @@ const schema = yup.object().shape({
 
 const Login = props => {
 
-  const { register, errors, handleSubmit, getValues } = useForm({
+    const { register, errors, handleSubmit, getValues } = useForm({
         validationSchema: schema
     })
 
@@ -44,7 +44,8 @@ const Login = props => {
         AxiosWithAuth()
             .post("api/auth/login", login)
             .then(res => {
-                localStorage.setItem("token", res.data.payload);
+                localStorage.setItem("token", res.data.token);
+                console.log(res)
                 props.history.push("/dashboard");
             })
 

@@ -1,165 +1,126 @@
-import React, { createRef, Component } from 'react';
-import Chart from 'chart.js';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import Chartjs from 'chart.js';
 import './SleepTracker.scss';
 
-const data = [
-    {
-        date: '2/26/2020',
+import { AxiosWithAuth } from '../utils/AxiosWithAuth'
+
+import { Bar } from 'react-chartjs-2'
+
+import DashboardNav from './DashboardNav'
+import { Pane } from 'evergreen-ui'
+
+
+const SleepTracker = (props) => {
+    const [sleepData, setSleepData] = useState([{
+        user_id: 11,
+        date: '2020-03-10',
         sleepStart: 0,
-        sleepEnd: 7,
+        sleepEnd: 12,
         moodMorn: 2,
         moodMid: 2,
-        moodNight: 4
-    },
-    {
-        date: '2/27/2020',
-        sleepStart: 18,
-        sleepEnd: 23,
-        moodMorn: 3,
-        moodMid: 1,
-        moodNight: 3
-    },
-    {
-        date: '2/28/2020',
-        sleepStart: 22,
-        sleepEnd: 6,
-        moodMorn: 4,
-        moodMid: 4,
-        moodNight: 2
-    },
-    {
-        date: '2/29/2020',
-        sleepStart: 10,
-        sleepEnd: 18,
-        moodMorn: 4,
-        moodMid: 2,
-        moodNight: 3
-    },
-    {
-        date: '3/01/2020',
-        sleepStart: 14,
-        sleepEnd: 16,
-        moodMorn: 1,
-        moodMid: 1,
-        moodNight: 1
-    },
-    {
-        date: '2/26/2020',
-        sleepStart: 0,
-        sleepEnd: 7,
-        moodMorn: 2,
-        moodMid: 2,
-        moodNight: 4
-    },
-    {
-        date: '2/27/2020',
-        sleepStart: 18,
-        sleepEnd: 23,
-        moodMorn: 3,
-        moodMid: 1,
-        moodNight: 3
-    },
-    {
-        date: '2/28/2020',
-        sleepStart: 22,
-        sleepEnd: 6,
-        moodMorn: 4,
-        moodMid: 4,
-        moodNight: 2
-    },
-    {
-        date: '2/29/2020',
-        sleepStart: 10,
-        sleepEnd: 18,
-        moodMorn: 4,
-        moodMid: 2,
-        moodNight: 3
-    },
-    {
-        date: '3/01/2020',
-        sleepStart: 14,
-        sleepEnd: 16,
-        moodMorn: 1,
-        moodMid: 1,
-        moodNight: 1
-    }
-];
+        moodNight: 2,
+    }]);
+    const [sleepLabels, setSleepLabels] = useState([]);
+    const [chartInstance, setChartInstance] = useState(null);
+    const chartContainer = useRef(null);
 
-const mySleepData = data.map(sleepDay => {
-    const sleepStartHours = sleepDay.sleepStart;
-    const sleepEndHours = sleepDay.sleepEnd;
+    useEffect(() => {
+        if (chartContainer && chartContainer.current) {
+            const newChartInstance = new Chartjs(chartContainer.current, chartConfig);
+            setChartInstance(newChartInstance);
+        }
+    }, [chartContainer]);
 
-    if (sleepStartHours === 0 && sleepEndHours < 12) {
-        return sleepEndHours;
-    }
-    else if (sleepStartHours === 0 && sleepEndHours > 12) {
-        const totalHours = (sleepEndHours - 12) + sleepStartHours;
-        return totalHours;
-    }
-    else if (sleepStartHours > 12 && sleepEndHours < 12) {
-        const totalHours = (24 - sleepStartHours) + sleepEndHours;
-        return totalHours;
-    }
-    else if (sleepStartHours > 12 && sleepEndHours > 12) {
-        const totalHours = (sleepEndHours - 12) - (sleepStartHours - 12);
-        return totalHours;
-    }
-    else if (sleepStartHours < 12 && sleepEndHours > 12) {
-        const totalHours = (12 - sleepStartHours) + (sleepEndHours - 12);
-        return totalHours;
-    }
-});
+    useEffect(() => {
+        AxiosWithAuth()
+            .get(`api/sleep-data`)
+            .then(res => {
+                setSleepData(res.data)
+                setSleepLabels(res.data)
+            })
+    }, [])
 
-const mySleepLabels = data.map(sleepDay => {
-    return sleepDay.date;
-});
-
-
-class SleepTracker extends Component {
-    constructor() {
-        super();
-        this.state = {
-            sleepData: mySleepData,
-            sleepLabels: mySleepLabels
-        };
+    const findHours = (sleepStartHours, sleepEndHours) => {
+        if (sleepStartHours === 0 && sleepEndHours < 12) {
+            return sleepEndHours;
+        }
+        else if (sleepStartHours === 0 && sleepEndHours > 12) {
+            const totalHours = (sleepEndHours - 12) + sleepStartHours;
+            return totalHours;
+        }
+        else if (sleepStartHours > 12 && sleepEndHours < 12) {
+            const totalHours = (24 - sleepStartHours) + sleepEndHours;
+            return totalHours;
+        }
+        else if (sleepStartHours > 12 && sleepEndHours > 12) {
+            const totalHours = (sleepEndHours - 12) - (sleepStartHours - 12);
+            return totalHours;
+        }
+        else if (sleepStartHours < 12 && sleepEndHours > 12) {
+            const totalHours = (12 - sleepStartHours) + (sleepEndHours - 12);
+            return totalHours;
+        }
     }
 
-    chartRef = createRef();
+    const findMood = (moodMorn, moodMid, moodNight) => {
+        return ((moodMorn + moodMid + moodNight) / 3)
+    }
 
-    componentDidMount() {
-        const myChartRef = this.chartRef.current.getContext("2d");
+    const chartConfig = {
 
-        new Chart(myChartRef, {
-            type: "bar",
-            data: {
-                //Bring in data
-                labels: this.state.sleepLabels,
-                datasets: [
-                    {
-                        label: "Hours of Sleep",
-                        data: this.state.sleepData,
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
                     }
-                ]
+                }]
             },
-            options: {
-                //Customize chart options
+            labels: {
+                fontColor: 'white'
             }
-        });
+        }
     }
 
-    render() {
-        return (
-            <>
-                <h1>Sleep Tracker!</h1>
-                <div className="sleeptracker">
-                    <canvas
-                        id="myChart"
-                        ref={this.chartRef}
-                    />
-                </div>
-            </>
-        );
-    }
-};
+    return (
+        <>
+            <Pane
+                display="flex">
+                <DashboardNav />
+                <Pane
+                    display="flex"
+                    flexDirection="column"
+                    width="80%">
+                    <h1>Sleep Tracker!</h1>
+                    <div className="sleeptracker">
+                        <Bar
+                            id="myChart"
+                            options={chartConfig.options}
+                            data={{
+                                labels: sleepData.map(entry => entry.date),
+                                datasets: [
+                                    {
+                                        label: "Hours of Sleep",
+                                        data: sleepData.map(entry => {
+                                            return findHours(entry.sleepStart, entry.sleepEnd)
+                                        }),
+                                        backgroundColor: "#37E3B8",
+                                    },
+                                    {
+                                        label: "Average Mood",
+                                        data: sleepData.map(entry => {
+                                            return findMood(entry.moodMorn, entry.moodMid, entry.moodNight)
+                                        }),
+                                        backgroundColor: "#8171F0",
+                                    }
+                                ]
+                            }}
+                        />
+                    </div>
+                </Pane>
+            </Pane>
+        </>
+    );
+}
 
 export default SleepTracker;
